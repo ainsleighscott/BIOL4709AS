@@ -1,0 +1,36 @@
+---
+title: "OceanCleaner_Vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OceanCleaner_Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+My package aims to clean and present data in a manageable way. First, the Marine.Clean function cleans the data of any duplicates and NA rows. Then the Pare.down function allows the user to pare down their data to a specific site and month in their data. Finally, the Species.Summary function gives a bar plot with the abundance of the species as well as a summary of the data. 
+
+```{r setup}
+library(Ocean.Cleaner)
+```
+```{r}
+head(ReefFish)
+
+
+```
+Using the ReefFish data set and assuming that you would want RedFish in Site1 during January you would do the following:
+```{r}
+Marine.distinct<- Marine.clean(ReefFish, remove_na= TRUE)
+
+site_data<- Pare.down( Marine.distinct, "January", "Reef1")
+
+Species.Summary(site_data,"Species", "RedFish", "Abundance")
+
+```
+
